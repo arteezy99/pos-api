@@ -19,6 +19,11 @@ const app = express();
 //     origin: 'http://localhost:3000'
 // }));
 
+app.use(cors({
+    credentials: false,
+    origin: 'https://client-pos-app.vercel.app'
+}));
+
 app.use(express.json());
 
 app.use("/api", UserRoute);
