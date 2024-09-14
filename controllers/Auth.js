@@ -15,7 +15,6 @@ export const Login = async (req, res) => {
         const match = await argon2.verify(user.password, req.body.password);
         if (!match) return res.status(400).json({ msg: "Password salah" });
 
-        // Create JWT token with uuid, firstName, lastName, email, and role
         const token = jwt.sign(
             {
                 uuid: user.uuid,  
@@ -24,15 +23,15 @@ export const Login = async (req, res) => {
                 email: user.email,
                 role: user.role,
             },
-            process.env.JWT_SECRET,  // Use the JWT secret from environment variable
-            { expiresIn: '1h' }  // Token expires in 1 hour
+            process.env.JWT_SECRET,
+            { expiresIn: '1h' }
         );
 
-        // Return user details and the JWT token
         const { uuid, firstName, lastName, email, role } = user;
         res.status(200).json({ uuid, firstName, lastName, email, role, token });
     } catch (error) {
-        res.status(500).json({ msg: "Internal server error" });
+        console.error('Login error:', error);
+        res.status(500).json({ msg: "Internal server error", error: error.message });
     }
 };
 
