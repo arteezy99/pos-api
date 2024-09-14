@@ -21,7 +21,7 @@ const app = express();
 
 app.use(cors({
     credentials: false,
-    origin: 'https://client-pos-app.vercel.app'
+    origin: 'https://ilhamyg-deptechtest.vercel.app'
 }));
 
 app.use(express.json());
